@@ -73,6 +73,7 @@ Scope {
         onVisibleChanged: {
             if (visible) {
                 searchInput.forceActiveFocus()
+                appLoader.running = true
             } else {
                 searchInput.text = ""
             }
