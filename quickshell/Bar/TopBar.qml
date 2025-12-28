@@ -33,6 +33,10 @@ PanelWindow {
             VolumeWidget {
                 style: root.style
             }
+
+            BatteryWidget {
+                style: root.style
+            }
         }
 
         Clock {
