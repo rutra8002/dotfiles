@@ -34,5 +34,10 @@ PanelWindow {
                 style: root.style
             }
         }
+
+        Clock {
+            anchors.centerIn: parent
+            style: root.style
+        }
     }
 }
