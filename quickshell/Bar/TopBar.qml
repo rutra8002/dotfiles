@@ -30,6 +30,11 @@ PanelWindow {
 
             Item { Layout.fillWidth: true }
 
+            SystemTray {
+                style: root.style
+                rootWindow: root
+            }
+
             VolumeWidget {
                 style: root.style
             }
