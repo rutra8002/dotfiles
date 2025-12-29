@@ -22,7 +22,7 @@ PanelWindow {
 
         RowLayout {
             anchors.fill: parent
-            spacing: 4
+            spacing: 12
 
             Workspaces {
                 style: root.style

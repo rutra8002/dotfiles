@@ -40,6 +40,5 @@ RowLayout {
         font.family: root.style.fontFamily
         font.bold: true
         color: root.style.purple
-        Layout.rightMargin: 8
     }
 }

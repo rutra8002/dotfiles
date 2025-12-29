@@ -7,7 +7,7 @@ import Quickshell.Widgets
 
 RowLayout {
     id: root
-    spacing: 4
+    spacing: 12
     property var style
     property var rootWindow
 
