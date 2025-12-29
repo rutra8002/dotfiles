@@ -35,6 +35,10 @@ PanelWindow {
                 rootWindow: root
             }
 
+            ScreenshotWidget {
+                style: root.style
+            }
+
             VolumeWidget {
                 style: root.style
             }
