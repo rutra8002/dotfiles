@@ -13,7 +13,7 @@ PanelWindow {
     screen: modelData
 
     anchors { top: true; left: true; right: true }
-    margins { top: 8; left: 8; right: 8 }
+    margins { top: 5; left: 5; right: 5 }
     implicitHeight: 48
     color: "transparent"
 
@@ -69,6 +69,10 @@ PanelWindow {
             }
 
             ScreenshotWidget {
+                style: root.style
+            }
+
+            WeatherWidget {
                 style: root.style
             }
 

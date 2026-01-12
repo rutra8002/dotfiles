@@ -9,7 +9,7 @@ QtObject {
     property color purple: "#ad8ee6"
     property color red: "#f7768e"
     property color accent: "#7dcfff"
-    property string fontFamily: "Firacode Nerd Font"
+    property string fontFamily: "FiraCode Nerd Font"
     property int fontSize: 13
     property int borderRadius: 12
     property int smallRadius: 8
