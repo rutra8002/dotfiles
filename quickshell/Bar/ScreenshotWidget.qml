@@ -4,13 +4,28 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
+import QtQuick.Effects
 
-Item {
+Rectangle {
     id: root
-    implicitWidth: icon.implicitWidth
-    implicitHeight: icon.implicitHeight
+    
+    Layout.preferredWidth: 36
+    Layout.preferredHeight: 32
+    Layout.alignment: Qt.AlignVCenter
+    color: mouseArea.containsMouse ? style.mutedLight : "transparent"
+    radius: style.smallRadius
     
     property var style
+    
+    scale: mouseArea.containsMouse ? 1.05 : 1.0
+    
+    Behavior on color {
+        ColorAnimation { duration: style.hoverAnimationDuration }
+    }
+    
+    Behavior on scale {
+        NumberAnimation { duration: style.hoverAnimationDuration; easing.type: Easing.OutCubic }
+    }
 
     Process {
         id: regionShot
@@ -36,11 +51,14 @@ Item {
         font.family: root.style.fontFamily
         font.pixelSize: root.style.fontSize
         color: root.style.cyan
+        anchors.centerIn: parent
     }
 
     MouseArea {
+        id: mouseArea
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
+        hoverEnabled: true
         onClicked: {
             var pos = icon.mapToGlobal(0, icon.height)
             popupContent.x = pos.x - (popupContent.width / 2) + (icon.width / 2)
@@ -69,13 +87,29 @@ Item {
 
         Rectangle {
             id: popupContent
-            width: 160
-            height: column.implicitHeight + 20
+            width: 180
+            height: column.implicitHeight + 24
             
-            color: root.style.bg
-            border.color: root.style.muted
-            border.width: 1
-            radius: 5
+            color: root.style.bgTransparent
+            radius: root.style.borderRadius
+            
+            layer.enabled: true
+            layer.effect: MultiEffect {
+                shadowEnabled: true
+                shadowColor: "#60000000"
+                shadowBlur: 0.8
+                shadowVerticalOffset: 4
+                shadowHorizontalOffset: 0
+            }
+            
+            Rectangle {
+                anchors.fill: parent
+                color: "transparent"
+                radius: parent.radius
+                border.color: root.style.mutedLight
+                border.width: 1
+                opacity: 0.3
+            }
             
             MouseArea {
                 anchors.fill: parent
@@ -85,28 +119,40 @@ Item {
             ColumnLayout {
                 id: column
                 anchors.centerIn: parent
-                spacing: 2
+                spacing: 4
                 
                 component ScreenshotButton: Rectangle {
-                    Layout.preferredWidth: 140
-                    Layout.preferredHeight: 30
-                    color: area.containsMouse ? root.style.muted : "transparent"
-                    radius: 4
+                    Layout.preferredWidth: 160
+                    Layout.preferredHeight: 36
+                    color: area.containsMouse ? root.style.mutedLight : "transparent"
+                    radius: root.style.smallRadius
                     property string text
                     property string icon
                     signal clicked
+                    
+                    scale: area.containsMouse ? 1.02 : 1.0
+                    
+                    Behavior on color {
+                        ColorAnimation { duration: root.style.hoverAnimationDuration }
+                    }
+                    
+                    Behavior on scale {
+                        NumberAnimation { duration: root.style.hoverAnimationDuration; easing.type: Easing.OutCubic }
+                    }
 
                     RowLayout {
                         anchors.fill: parent
-                        anchors.leftMargin: 10
-                        anchors.rightMargin: 10
-                        spacing: 10
+                        anchors.leftMargin: 12
+                        anchors.rightMargin: 12
+                        spacing: 12
+                        
                         Text {
                             text: parent.parent.icon
                             font.family: root.style.fontFamily
                             font.pixelSize: root.style.fontSize
-                            color: root.style.cyan
+                            color: root.style.accent
                         }
+                        
                         Text {
                             text: parent.parent.text
                             font.family: root.style.fontFamily
@@ -115,6 +161,7 @@ Item {
                             Layout.fillWidth: true
                         }
                     }
+                    
                     MouseArea {
                         id: area
                         anchors.fill: parent
