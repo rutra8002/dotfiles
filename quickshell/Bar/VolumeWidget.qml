@@ -2,27 +2,12 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell.Services.Pipewire
 
-Rectangle {
+BaseWidget {
     id: root
     
-    property var style
-    property int volumeLevel: 0
-    
     Layout.preferredWidth: contentRow.width + 16
-    Layout.preferredHeight: 32
-    Layout.alignment: Qt.AlignVCenter
-    color: mouseArea.containsMouse ? style.mutedLight : "transparent"
-    radius: style.smallRadius
     
-    scale: mouseArea.containsMouse ? 1.05 : 1.0
-    
-    Behavior on color {
-        ColorAnimation { duration: style.hoverAnimationDuration }
-    }
-    
-    Behavior on scale {
-        NumberAnimation { duration: style.hoverAnimationDuration; easing.type: Easing.OutCubic }
-    }
+    property int volumeLevel: 0
 
     PwObjectTracker { objects: [ Pipewire.defaultAudioSink ] }
 
@@ -60,12 +45,5 @@ Rectangle {
             font.bold: true
             color: root.style.purple
         }
-    }
-    
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
     }
 }

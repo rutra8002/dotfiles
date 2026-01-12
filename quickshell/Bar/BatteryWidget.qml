@@ -2,29 +2,14 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell.Services.UPower
 
-Rectangle {
+BaseWidget {
     id: root
     
-    property var style
+    Layout.preferredWidth: contentRow.width + 16
+    
     property var device: UPower.displayDevice
 
     visible: device && device.isPresent
-    
-    Layout.preferredWidth: contentRow.width + 16
-    Layout.preferredHeight: 32
-    Layout.alignment: Qt.AlignVCenter
-    color: mouseArea.containsMouse ? style.mutedLight : "transparent"
-    radius: style.smallRadius
-    
-    scale: mouseArea.containsMouse ? 1.05 : 1.0
-    
-    Behavior on color {
-        ColorAnimation { duration: style.hoverAnimationDuration }
-    }
-    
-    Behavior on scale {
-        NumberAnimation { duration: style.hoverAnimationDuration; easing.type: Easing.OutCubic }
-    }
 
     RowLayout {
         id: contentRow
@@ -61,12 +46,5 @@ Rectangle {
             font.bold: true
             color: root.style.purple
         }
-    }
-    
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
     }
 }
