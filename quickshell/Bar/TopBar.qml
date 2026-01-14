@@ -68,6 +68,10 @@ PanelWindow {
                 rootWindow: root
             }
 
+            KeyboardLayoutWidget {
+                style: root.style
+            }
+
             ScreenshotWidget {
                 style: root.style
             }
